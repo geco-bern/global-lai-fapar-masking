@@ -28,14 +28,14 @@ GDAL_OPTS <- gdal_co_int()
 in_dirs <- list(
   lai_nc_dir = exp_(here("data-raw", "LAI", "lai_1982-2024")),
   fpar_nc_dir = exp_(here("data-raw", "FPAR", "fpar_1982-2024")),
-  cci_dir = exp_(here("data-raw", "ESACCI", "ESACCI_1992-2022")),
-  glc_dir = exp_(here("data-raw", "GLC_FCS30D"))
+  cci_dir = exp_(here("data-raw", "ESACCI", "ESACCI_1992-2022"))
 )
 
 dirs <- list(
   georef_lai_0p05_dir = here("data", "georef", "georef_lai_0p05"),
   georef_fpar_0p05_dir = here("data", "georef", "georef_fpar_0p05"),
   cci_out_dir = here("data", "frac", "cci_frac_0p05"),
+  glc_dir = here("data", "frac", "glc_maps_0p05"),
   glc_out_dir = here("data", "frac", "glc_frac_0p05"),
   masks_root_dir = here("output", run_tag, "masks"),
   mask_nonvegetated_dir = here("output", if (is_glc) "alpha_0.1" else run_tag, "masks", "mask_nonvegetated")
