@@ -11,9 +11,9 @@ source(here("R", "helpers", "io.R"))
 
 terraOptions(progress = 1, memfrac = 0.25)
 
-archive_dir <- here("data-raw", "GLC_FCS30D", "archives")
-tile_out_dir <- here("data", "frac", "glc_native_tiles_0p05")
-global_out_dir <- here("data-raw", "GLC_FCS30D")
+archive_dir <- here("data-raw", "GLC_FCS30D")
+tile_out_dir <- here("data", "frac", "glc_tiles_0p05")
+global_out_dir <- here("data", "frac", "glc_maps_0p05")
 
 years_5year <- c(1985, 1990, 1995)
 years_annual <- 2000:2022
@@ -138,7 +138,7 @@ aggregate_tile <- function(file, years, period) {
 }
 
 extract_archive <- function(archive, output_dir) {
-  status <- system2("unzip", c("-q", archive, "-d", output_dir))
+  status <- system2("unzip", c("-q", shQuote(archive), "-d", shQuote(output_dir)))
   if (status != 0) {
     stop("Could not extract ", basename(archive))
   }
@@ -261,30 +261,28 @@ write_global_outputs <- function() {
   )
 }
 
-archives <- sort(list.files(
-  archive_dir,
-  "^GLC_FCS30D_19852022maps_.*\\.zip$",
-  full.names = TRUE
-))
+tile_counts <- vapply(
+  c("mode_5year", "grass_5year", "mode_annual", "grass_annual"),
+  function(name) {
+    length(list.files(tile_out_dir, sprintf("^glc_%s_.*_0p05\\.tif$", name)))
+  },
+  integer(1)
+)
 
-
-if (length(archives) != 36) {
-    stop("Expected 36 GLC_FCS30D v2 archives in ", archive_dir, "; found ", length(archives))
+if (!all(tile_counts == 961L)) {
+  archives <- sort(list.files(
+    archive_dir,
+    "^GLC_FCS30D_19852022maps_.*\\.zip$",
+    full.names = TRUE
+  ))
+  if (length(archives) != 36L) {
+    stop("Expected 36 GLC_FCS30D v2 archives in ", archive_dir,
+      "; found ", length(archives))
+  }
+  for (archive in archives) {
+    process_archive(archive)
+  }
 }
 
-  tile_counts <- vapply(
-    c("mode_5year", "grass_5year", "mode_annual", "grass_annual"),
-    function(name) {
-      length(list.files(tile_out_dir, sprintf("^glc_%s_.*_0p05\\.tif$", name)))
-    },
-    integer(1)
-  )
-
-  if (!all(tile_counts == 961)) {
-    for (archive in archives) {
-      process_archive(archive)
-    }
-  }
-
-  write_global_outputs()
-  message("GLC_FCS30D v2 local preprocessing complete.")
+write_global_outputs()
+message("GLC_FCS30D v2 local preprocessing complete.")
