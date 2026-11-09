@@ -33,11 +33,11 @@ Download scripts are provided in the `ESACCI/` directory.
 
 Used for the GLC-based masking branch and for fractional grass-cover estimates used with LUH2 pasture data.
 
-The original 30 m archives are stored under `GLC_FCS30D/archives/`. Derived 0.05° products include categorical modal-class maps and fractional grass-cover maps.
+The original 30 m archives are stored under `GLC_FCS30D/`. Generated 0.05° tiles, global maps, and time stacks are stored under `data/frac/`.
 
 Source:
 
-- Liu, L., Zhang, X., and Li, Z. (2025). GLC_FCS30D (version 2). Zenodo. https://doi.org/10.5281/zenodo.15063683
+- https://doi.org/10.5281/zenodo.15063683
 - Zhang et al. (2024), *Earth System Science Data*, 16, 1353--1381. https://doi.org/10.5194/essd-16-1353-2024
 
 ## LAI and FPAR
@@ -52,8 +52,8 @@ FPAR/fpar_1982-2024/
 Source:
 
 - https://www.environment.snu.ac.kr/data/longterm-lai
-- Jeong et al. (2024), *Remote Sensing of Environment*, 311, 114282. https://doi.org/10.1016/j.rse.2024.114282
-- Jeong et al. (2026), *Sustained global greening driven by continuous CO2 fertilization*, Research Square preprint, version 1. https://doi.org/10.21203/rs.3.rs-8621169/v1
+- Jeong et al. (2024), *Remote Sensing of Environment*, 311, 114282
+- Jeong et al. (2026), *Sustained global greening driven by continuous CO2 fertilization*, Research Square preprint
 
 ## LUH2 v2h
 
@@ -68,5 +68,9 @@ LUH2_v2h/states.nc
 Source:
 
 - https://luh.umd.edu/data.shtml
-- Hurtt et al. (2020), Harmonization of global land use change and management for the period 850–2100 (LUH2) for CMIP6. *Geoscientific Model Development*, 13, 5425–5464. https://doi.org/10.5194/gmd-13-5425-2020
+- Hurtt et al. (2020), LUH2 for CMIP6
+- Historical and future LUH2 input4MIPs datasets are available through ESGF
 
+## Reproducibility
+
+The four files under `config/` define dataset paths, analysis years, thresholds, and class mappings.
