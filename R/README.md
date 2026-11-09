@@ -11,7 +11,7 @@ This folder contains the main R scripts for building and analyzing LAI and FPAR 
 5. Apply masks and aggregate to the analysis grid.
 6. Compute trends, summaries, and diagnostics.
 
-The workflow uses common global grids at 0.05° for processing, 0.25° for analysis, and 0.5° for Chapter 2 inputs.
+All rasters are aligned to common global grids at 0.05° for processing and 0.25° for analysis.
 
 ## Main scripts
 
@@ -40,14 +40,14 @@ The workflow uses common global grids at 0.05° for processing, 0.25° for analy
 - `08_agg_nonveg_0p25.R` aggregates the unmasked baseline to 0.25°.
 - `10_apply_mask_0p05.R` applies the combined masks to monthly LAI and FPAR.
 - `11_agg_0p25.R` aggregates masked products to 0.25°.
-- `11_agg_0p5.R` aggregates the CCI alpha 0.1 plus pasture masked fAPAR to monthly 0.5° GeoTIFFs and a 516-month NetCDF.
+- `11_agg_0p5.R` aggregates fAPAR with CCI alpha 0.1, pasture and nonvegetated exclusions to monthly 0.5° GeoTIFFs and a 516-month NetCDF.
 
 GLC outputs are stored under `output/glc/`. CCI outputs are stored under their threshold folders.
 
 ### Chapter 2 inputs
 
-- `12_chapter2_inputs_0p5.R` creates the separate unmasked 0.5° fAPAR and mask
-  inputs used for Chapter 2.
+- `12_chapter2_inputs_0p5.R` creates the matching retained-area raster.
+  The fAPAR NetCDF is produced by `11_agg_0p5.R`.
 
 ## Mask convention
 
